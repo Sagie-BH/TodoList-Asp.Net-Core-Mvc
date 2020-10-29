@@ -1,0 +1,12 @@
+C:\Users\Sagie\source\repos\TodoList\DAL\bin\Debug\netcoreapp3.1\DAL.deps.json
+C:\Users\Sagie\source\repos\TodoList\DAL\bin\Debug\netcoreapp3.1\DAL.dll
+C:\Users\Sagie\source\repos\TodoList\DAL\obj\Debug\netcoreapp3.1\DAL.AssemblyInfoInputs.cache
+C:\Users\Sagie\source\repos\TodoList\DAL\obj\Debug\netcoreapp3.1\DAL.AssemblyInfo.cs
+C:\Users\Sagie\source\repos\TodoList\DAL\bin\Debug\netcoreapp3.1\DAL.runtimeconfig.json
+C:\Users\Sagie\source\repos\TodoList\DAL\bin\Debug\netcoreapp3.1\DAL.runtimeconfig.dev.json
+C:\Users\Sagie\source\repos\TodoList\DAL\bin\Debug\netcoreapp3.1\DAL.pdb
+C:\Users\Sagie\source\repos\TodoList\DAL\obj\Debug\netcoreapp3.1\DAL.dll
+C:\Users\Sagie\source\repos\TodoList\DAL\obj\Debug\netcoreapp3.1\DAL.pdb
+C:\Users\Sagie\source\repos\TodoList\DAL\obj\Debug\netcoreapp3.1\DAL.genruntimeconfig.cache
+C:\Users\Sagie\source\repos\TodoList\DAL\obj\Debug\netcoreapp3.1\DAL.csproj.CoreCompileInputs.cache
+C:\Users\Sagie\source\repos\TodoList\DAL\obj\Debug\netcoreapp3.1\DAL.csprojAssemblyReference.cache
