@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using DAL;
@@ -38,7 +39,7 @@ namespace TodoList
 
             services.AddScoped(typeof(ISqlRepository<TodoObjectModel>), typeof(TodoRepository));
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName.Contains("DAL")));
 
         }
 
@@ -66,7 +67,7 @@ namespace TodoList
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Todo}/{action=Index}/{id?}");
             });
         }
     }

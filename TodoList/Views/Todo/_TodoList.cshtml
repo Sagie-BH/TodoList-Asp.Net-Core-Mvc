@@ -1,0 +1,71 @@
+﻿
+@using DAL.Repositories
+@using DAL.Dtos.TodoDtos;
+
+@model TodoList.ViewModels.TodoListViewModel;
+@inject ISqlRepository<DAL.TodoObjectModel> Repository;
+@inject AutoMapper.IMapper mapper;
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TodoObject.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TodoObject.EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TodoObject.SubmitTime)
+            <th>
+                @Html.DisplayNameFor(model => model.TodoObject.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TodoObject.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TodoObject.Priority)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            var TodoReadObjectList = mapper.Map<IEnumerable<TodoObjectReadDto>>(Repository.GetAll());
+        }
+        @if (TodoReadObjectList != null)
+        {
+            foreach (var item in TodoReadObjectList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubmitTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Priority)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

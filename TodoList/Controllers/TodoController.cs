@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using DAL.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TodoList.Models;
 
 namespace TodoList.Controllers
 {
-    public class HomeController : Controller
+    public class TodoController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<TodoController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public TodoController(ILogger<TodoController> logger)
         {
             _logger = logger;
         }
