@@ -67,7 +67,7 @@ namespace TodoList
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Todo}/{action=Index}/{id?}");
+                    pattern: "{controller=Todo}/{action=Todo}/{id?}");
             });
         }
     }

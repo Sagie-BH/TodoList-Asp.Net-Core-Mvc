@@ -80,7 +80,6 @@ C:\Users\Sagie\source\repos\TodoList\TodoList\obj\Debug\netcoreapp3.1\TodoList.g
 C:\Users\Sagie\source\repos\TodoList\TodoList\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\Sagie\source\repos\TodoList\TodoList\bin\Debug\netcoreapp3.1\AutoMapper.dll
 C:\Users\Sagie\source\repos\TodoList\TodoList\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
-C:\Users\Sagie\source\repos\TodoList\TodoList\obj\Debug\netcoreapp3.1\Razor\Views\Todo\Index.cshtml.g.cs
 C:\Users\Sagie\source\repos\TodoList\TodoList\obj\Debug\netcoreapp3.1\Razor\Views\Todo\Privacy.cshtml.g.cs
 C:\Users\Sagie\source\repos\TodoList\TodoList\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\Sagie\source\repos\TodoList\TodoList\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.dll
@@ -158,3 +157,5 @@ C:\Users\Sagie\source\repos\TodoList\TodoList\obj\Debug\netcoreapp3.1\Razor\View
 C:\Users\Sagie\source\repos\TodoList\TodoList\obj\Debug\netcoreapp3.1\TodoList.csproj.CoreCompileInputs.cache
 C:\Users\Sagie\source\repos\TodoList\TodoList\obj\Debug\netcoreapp3.1\TodoList.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Sagie\source\repos\TodoList\TodoList\obj\Debug\netcoreapp3.1\Razor\Views\Todo\_TodoList.cshtml.g.cs
+C:\Users\Sagie\source\repos\TodoList\TodoList\obj\Debug\netcoreapp3.1\Razor\Views\Todo\Todo.cshtml.g.cs
+C:\Users\Sagie\source\repos\TodoList\TodoList\obj\Debug\netcoreapp3.1\Razor\Views\Todo\_TodoObjectForm.cshtml.g.cs

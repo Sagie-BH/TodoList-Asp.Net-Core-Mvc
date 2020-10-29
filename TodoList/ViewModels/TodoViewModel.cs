@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TodoList.ViewModels
 {
-    public class TodoListViewModel
+    public class TodoViewModel
     {
         public TodoObjectReadDto TodoObject { get; set; }
         public List<TodoObjectReadDto> TodoList {get;set;}

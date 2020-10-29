@@ -19,11 +19,14 @@ namespace TodoList.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Todo()
         {
             return View();
         }
-
+        public IActionResult TodoList()
+        {
+            return PartialView();
+        }
         public IActionResult Privacy()
         {
             return View();

@@ -2,12 +2,12 @@
 @using DAL.Repositories
 @using DAL.Dtos.TodoDtos;
 
-@model TodoList.ViewModels.TodoListViewModel;
+@model TodoList.ViewModels.TodoViewModel;
 @inject ISqlRepository<DAL.TodoObjectModel> Repository;
 @inject AutoMapper.IMapper mapper;
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
 <table class="table">
     <thead>
         <tr>
