@@ -1,10 +1,11 @@
-﻿using DAL.Dtos.TodoDtos;
+﻿using TodoList.Dtos.TodoDtos;
+using TodoList.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace DAL.Helpers
+namespace TodoList.Helpers
 {
     public class ValidationAttributes
     {
@@ -12,7 +13,7 @@ namespace DAL.Helpers
         {
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
             {
-                TodoObjectCreateDto task = (TodoObjectCreateDto)validationContext.ObjectInstance;
+                TodoViewModel task = (TodoViewModel)validationContext.ObjectInstance;
                 if (task.StartTime > task.EndTime)
                 {
                     return new ValidationResult("End Time must be after start time");
@@ -24,7 +25,7 @@ namespace DAL.Helpers
         {
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
             {
-                TodoObjectCreateDto task = (TodoObjectCreateDto)validationContext.ObjectInstance;
+                TodoViewModel task = (TodoViewModel)validationContext.ObjectInstance;
                 if (task.StartTime < DateTime.Now)
                 {
                     return new ValidationResult("Start Time can't be in the past");

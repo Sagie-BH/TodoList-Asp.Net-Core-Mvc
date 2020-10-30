@@ -1,9 +1,9 @@
 ﻿
-@using DAL.Repositories
-@using DAL.Dtos.TodoDtos;
+@using TodoList.Repositories
+@using TodoList.Dtos.TodoDtos;
 
 @model TodoList.ViewModels.TodoViewModel;
-@inject ISqlRepository<DAL.TodoObjectModel> Repository;
+@inject ISqlRepository<TodoList.TodoObjectModel> Repository;
 @inject AutoMapper.IMapper mapper;
 @*<p>
     <a asp-action="Create">Create New</a>
@@ -17,6 +17,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.EndTime)
             </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>

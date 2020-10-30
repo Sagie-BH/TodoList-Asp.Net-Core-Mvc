@@ -4,10 +4,10 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
-using DAL;
-using DAL.DataContext;
-using DAL.Models;
-using DAL.Repositories;
+using TodoList;
+using TodoList.DataContext;
+using TodoList.Models;
+using TodoList.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,7 +39,7 @@ namespace TodoList
 
             services.AddScoped(typeof(ISqlRepository<TodoObjectModel>), typeof(TodoRepository));
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName.Contains("DAL")));
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         }
 

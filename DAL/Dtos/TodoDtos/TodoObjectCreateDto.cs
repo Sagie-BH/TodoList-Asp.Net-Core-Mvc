@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using static DAL.Helpers.ValidationAttributes;
+using static TodoList.Helpers.ValidationAttributes;
 
-namespace DAL.Dtos.TodoDtos
+namespace TodoList.Dtos.TodoDtos
 {
     public class TodoObjectCreateDto
     {

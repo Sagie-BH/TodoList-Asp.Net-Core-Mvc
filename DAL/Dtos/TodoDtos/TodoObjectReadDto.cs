@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace DAL.Dtos.TodoDtos
+namespace TodoList.Dtos.TodoDtos
 {
     public class TodoObjectReadDto
     {

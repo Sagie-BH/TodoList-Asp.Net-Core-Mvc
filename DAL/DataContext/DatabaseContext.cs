@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using DAL.Models;
+using TodoList.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataContext
+namespace TodoList.DataContext
 {
     public class DatabaseContext: DbContext
     {

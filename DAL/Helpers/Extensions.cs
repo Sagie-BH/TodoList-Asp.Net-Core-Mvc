@@ -1,9 +1,9 @@
-﻿using DAL.Models;
+﻿using TodoList.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DAL.Helpers
+namespace TodoList.Helpers
 {
     public static class Extensions
     {

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using DAL.Dtos.UserDtos;
-using DAL.Models;
+using TodoList.Dtos.UserDtos;
+using TodoList.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DAL.Profiles
+namespace TodoList.Profiles
 {
     public class UserProfile : Profile
     {

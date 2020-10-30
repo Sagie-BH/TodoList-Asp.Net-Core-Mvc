@@ -1,10 +1,10 @@
-﻿using DAL.Dtos.TodoDtos;
+﻿using TodoList.Dtos.TodoDtos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using static DAL.Helpers.ValidationAttributes;
+using static TodoList.Helpers.ValidationAttributes;
 
 namespace TodoList.ViewModels
 {

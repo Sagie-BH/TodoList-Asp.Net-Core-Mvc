@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DAL.Migrations
+namespace TodoList.Migrations
 {
     public partial class AuthenticationTable : Migration
     {

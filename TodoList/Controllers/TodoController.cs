@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using DAL.Dtos.TodoDtos;
-using DAL.Repositories;
+using AutoMapper;
+using TodoList;
+using TodoList.Dtos.TodoDtos;
+using TodoList.Repositories;
+using TodoList.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TodoList.Models;
@@ -14,10 +17,14 @@ namespace TodoList.Controllers
     public class TodoController : Controller
     {
         private readonly ILogger<TodoController> _logger;
+        private readonly ISqlRepository<TodoObjectModel> _sqlRepository;
+        private readonly IMapper _mapper;
 
-        public TodoController(ILogger<TodoController> logger)
+        public TodoController(ILogger<TodoController> logger, ISqlRepository<TodoObjectModel> sqlRepository, IMapper mapper)
         {
             _logger = logger;
+            _sqlRepository = sqlRepository;
+            _mapper = mapper;
         }
 
         public IActionResult Todo()
@@ -29,9 +36,15 @@ namespace TodoList.Controllers
             return PartialView();
         }
         [HttpPost]
-        public IActionResult TodoObjectForm(TodoObjectCreateDto todoCreateObject)
+        public ActionResult TodoFormTask(TodoObjectCreateDto todoCreateObject)
         {
-            return View();
+            var TodoModelObject = _mapper.Map<TodoObjectModel>(todoCreateObject);
+            _sqlRepository.Create(TodoModelObject);
+            if(_sqlRepository.SaveChanges())
+            {
+                return View("Todo");
+            }
+            return NotFound();
         }
         public IActionResult Privacy()
         {

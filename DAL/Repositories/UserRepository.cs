@@ -1,11 +1,11 @@
-﻿using DAL.DataContext;
-using DAL.Models;
+﻿using TodoList.DataContext;
+using TodoList.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DAL.Repositories
+namespace TodoList.Repositories
 {
     public class UserRepository : ISqlRepository<UserModel>
     {

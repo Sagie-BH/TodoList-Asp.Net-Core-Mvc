@@ -1,10 +1,10 @@
-﻿using DAL.DataContext;
+﻿using TodoList.DataContext;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DAL.Repositories
+namespace TodoList.Repositories
 {
     public class TodoRepository : ISqlRepository<TodoObjectModel>
     {

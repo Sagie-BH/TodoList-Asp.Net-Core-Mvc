@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Text;
 
-namespace DAL
+namespace TodoList
 {
     [Table("TodosTable")]
     public class TodoObjectModel

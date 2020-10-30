@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
-using DAL.Dtos.TodoDtos;
+using TodoList.Dtos.TodoDtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TodoList.ViewModels;
 
-namespace DAL.Profiles
+namespace TodoList.Profiles
 {
     public class TodoProfile : Profile
     {
@@ -12,6 +13,7 @@ namespace DAL.Profiles
         {
             CreateMap<TodoObjectModel, TodoObjectReadDto>();
             CreateMap<TodoObjectCreateDto, TodoObjectModel>();
+            CreateMap<TodoViewModel, TodoObjectCreateDto>();
         }
     }
 }

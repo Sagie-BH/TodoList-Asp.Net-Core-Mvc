@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DAL.Migrations
+namespace TodoList.Migrations
 {
     public partial class Initialize : Migration
     {
