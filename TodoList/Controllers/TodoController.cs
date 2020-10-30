@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using DAL.Dtos.TodoDtos;
 using DAL.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -26,6 +27,11 @@ namespace TodoList.Controllers
         public IActionResult TodoList()
         {
             return PartialView();
+        }
+        [HttpPost]
+        public IActionResult TodoObjectForm(TodoObjectCreateDto todoCreateObject)
+        {
+            return View();
         }
         public IActionResult Privacy()
         {

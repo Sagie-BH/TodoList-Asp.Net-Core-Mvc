@@ -1,8 +1,8 @@
-﻿@model DAL.Dtos.TodoDtos.TodoObjectCreateDto
+﻿@model TodoList.ViewModels.TodoViewModels.TodoFormViewModel;
 
-<h4>Todo Object</h4>
+<h4>Create/Edit Object</h4>
 <hr />
-<form asp-action="_TodoObjectForm">
+<form data-ajax="true" asp-action="TodoObjectForm">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="row">
         <div class="form-group col-3">
