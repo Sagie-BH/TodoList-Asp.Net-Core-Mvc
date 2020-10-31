@@ -4,10 +4,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using TodoList;
-using TodoList.Dtos.TodoDtos;
-using TodoList.Repositories;
-using TodoList.ViewModels;
+using DAL.Dtos;
+using DAL.Models;
+using DAL.Repositories;
+using DAL.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TodoList.Models;
@@ -36,15 +37,36 @@ namespace TodoList.Controllers
             return PartialView();
         }
         [HttpPost]
-        public ActionResult TodoFormTask(TodoObjectCreateDto todoCreateObject)
+        public ActionResult TodoFormTask(TodoViewModel todoViewObject)
         {
-            var TodoModelObject = _mapper.Map<TodoObjectModel>(todoCreateObject);
+            var TodoModelObject = _mapper.Map<TodoObjectModel>(todoViewObject);
             _sqlRepository.Create(TodoModelObject);
+
             if(_sqlRepository.SaveChanges())
             {
-                return View("Todo");
+                return Ok(_mapper.Map<TodoViewModel>(TodoModelObject));
             }
             return NotFound();
+        }
+        [HttpPost]
+        public ActionResult<TodoObjectModel> Delete(int id)
+        {
+            try
+            {
+                var todoToDelete =  _sqlRepository.GetById(id);
+                if (todoToDelete == null)
+                {
+                    return NotFound($"Todo Object with Id = {id} not found");
+                }
+                _sqlRepository.Remove(id);
+                _sqlRepository.SaveChanges();
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error deleting data");
+            }
         }
         public IActionResult Privacy()
         {

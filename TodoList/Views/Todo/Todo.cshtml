@@ -1,9 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Todo Calender";
+    ViewData["Title"] = "Todo List";
 }
 
 <div class="text-center">
     <h1 class="display-4">To Do</h1>
+    <h4>Last Page Serever Refresh: @DateTime.Now</h4>
 </div>
 <partial name="_TodoObjectForm" />
 <partial name="_TodoList" />
@@ -12,4 +13,5 @@
     <partial name="_ValidationScriptsPartial" />
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/js/TodoScript.js"></script>
 }

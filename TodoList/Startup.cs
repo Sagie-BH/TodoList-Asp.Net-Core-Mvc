@@ -4,9 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
-using TodoList;
-using TodoList.DataContext;
-using TodoList.Models;
 using TodoList.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,7 +12,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using DAL.DataContext;
+using DAL.Repositories;
+using DAL.Models;
 
 namespace TodoList
 {

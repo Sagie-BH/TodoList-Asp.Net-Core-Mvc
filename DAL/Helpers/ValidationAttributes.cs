@@ -1,11 +1,8 @@
-﻿using TodoList.Dtos.TodoDtos;
-using TodoList.ViewModels;
+﻿using DAL.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace TodoList.Helpers
+namespace DAL.Helpers
 {
     public class ValidationAttributes
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TodoList.Repositories
+namespace DAL.Repositories
 {
     public interface ISqlRepository<TEntity> where TEntity : class
     {

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using TodoList.Dtos.UserDtos;
-using TodoList.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using DAL.Models;
+using DAL.Dtos.UserDtos;
 
 namespace TodoList.Profiles
 {

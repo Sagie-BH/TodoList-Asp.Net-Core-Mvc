@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace TodoList.Dtos.UserDtos
+namespace DAL.Dtos.UserDtos
 {
     public class UserCreateDto
     {

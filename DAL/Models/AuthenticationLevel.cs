@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace TodoList.Models
+namespace DAL.Models
 {
     public class AuthenticationLevel
     {

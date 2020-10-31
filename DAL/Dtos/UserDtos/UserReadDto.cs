@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TodoList.Dtos.UserDtos
+namespace DAL.Dtos.UserDtos
 {
     public class UserReadDto
     {

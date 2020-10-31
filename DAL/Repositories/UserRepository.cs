@@ -1,9 +1,8 @@
-﻿using TodoList.DataContext;
-using TodoList.Models;
-using System;
+﻿using DAL.DataContext;
+using DAL.Models;
+using DAL.Repositories;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace TodoList.Repositories
 {

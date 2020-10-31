@@ -1,4 +1,6 @@
-﻿using TodoList.DataContext;
+﻿using DAL.DataContext;
+using DAL.Models;
+using DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
