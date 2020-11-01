@@ -1,0 +1,6 @@
+﻿.todoRow:hover {
+    background-color: gainsboro;
+}
+.hide-me {
+    display:none;
+}

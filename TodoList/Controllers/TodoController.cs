@@ -49,7 +49,7 @@ namespace TodoList.Controllers
             return NotFound();
         }
         [HttpPost]
-        public ActionResult<TodoObjectModel> Delete(int id)
+        public ActionResult<TodoViewModel> Delete(int id)
         {
             try
             {
@@ -67,6 +67,12 @@ namespace TodoList.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error deleting data");
             }
+        }
+        [HttpPost]
+        public JsonResult Edit(string todoViewObject)
+        {
+            var a = todoViewObject;
+            return Json(a);
         }
         public IActionResult Privacy()
         {
