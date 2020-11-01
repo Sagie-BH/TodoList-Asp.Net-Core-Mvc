@@ -68,12 +68,16 @@ namespace TodoList.Controllers
                     "Error deleting data");
             }
         }
+
+
         [HttpPost]
-        public JsonResult Edit(string todoViewObject)
+        public ActionResult<TodoViewModel> Edit(TodoViewModel todoViewObject)
         {
             var a = todoViewObject;
             return Json(a);
         }
+
+
         public IActionResult Privacy()
         {
             return View();
