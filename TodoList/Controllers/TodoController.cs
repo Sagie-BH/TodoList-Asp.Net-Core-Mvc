@@ -71,7 +71,7 @@ namespace TodoList.Controllers
 
 
         [HttpPost]
-        public ActionResult<TodoViewModel> Edit(TodoViewModel todoViewObject)
+        public ActionResult<TodoObjectCreateDto> Edit([FromBody] TodoObjectCreateDto todoViewObject)
         {
             var a = todoViewObject;
             return Json(a);

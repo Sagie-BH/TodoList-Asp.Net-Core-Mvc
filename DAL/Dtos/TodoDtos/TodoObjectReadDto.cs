@@ -7,7 +7,7 @@ namespace DAL.Dtos
 {
     public class TodoObjectReadDto
     {
-        //public int ID { get; set; }
+        public int ID { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public DateTime SubmitTime { get; set; }

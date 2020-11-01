@@ -118,8 +118,7 @@ const sendEditRequest = () => {
         url: `/Todo/Edit`,
         type: "POST",
         data: todoData,
-        contentType: "json",
-        dataType: "json",
+        contentType: "application/json;",
         error: function (response) {
             console.log(response.responseText);
         },
