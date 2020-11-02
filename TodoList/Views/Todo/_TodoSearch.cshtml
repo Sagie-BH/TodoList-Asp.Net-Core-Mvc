@@ -19,7 +19,7 @@
             <select asp-for="Property" asp-items="@new SelectList(propertyList)" class="selectpicker form-control col-3">
                 <option disabled>Choose Property</option>
             </select>
-            <input asp-for="SearchTerm" id="search-input" type="search" class="form-control offset-1 col-4" required />
+            <input asp-for="SearchTerm" id="search-input" type="search" class="form-control offset-1 col-4" />
             <input id="search-btn" type="submit" value="Search" class="btn btn-primary col-2 offset-2" />
         </form>
 
