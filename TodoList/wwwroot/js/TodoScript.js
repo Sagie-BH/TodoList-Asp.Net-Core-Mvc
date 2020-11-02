@@ -106,7 +106,8 @@ const getObjFromFields = () => {
 
 // Sending Edit Ajax Post Request
 const sendEditRequest = () => {
-    let todoData = JSON.stringify(getObjFromFields())
+    let todoObject = getObjFromFields()
+    let todoData = JSON.stringify(todoObject)
     //let xhr = new XMLHttpRequest();
     //xhr.open('POST', `/Todo/Edit`, false);
     //xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
@@ -126,7 +127,9 @@ const sendEditRequest = () => {
             console.log(response.responseText);
         },
         success: function (response) {
-            document.getElementsByClassName('form-control').value = null;
+            document.getElementById('todoTableBody').removeChild(document.getElementById('row' + todoObject.Id));
+            addRow(todoObject);
+            document.getElementById('todo-form').reset();
         }
     });
 }
