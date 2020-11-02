@@ -21,11 +21,14 @@ const contextToTodoObj = (context) => {
 
     return todoObject;
 }
+
 // Converting Ajax Context To Todo Object Model
 var onSuccess = function (context) {
-
     addRow(contextToTodoObj(context));
+    document.getElementById('todo-form').reset();
+
 };
+
 // Adding New Row To Todo Table 
 const addRow = (todoObj) => {
     document.getElementById('todoTableBody').innerHTML += `<tr class="todoRow" id=row${todoObj.Id}>
@@ -92,6 +95,7 @@ const fixDate = (date, isForTable) => {
 const fixDateNum = (number) => {
     return number > 9 ? number : "0" + number;
 };
+
 // Edit Input Fields => Todo Object
 const getObjFromFields = () => {
     let todoObject = new TodoModel();

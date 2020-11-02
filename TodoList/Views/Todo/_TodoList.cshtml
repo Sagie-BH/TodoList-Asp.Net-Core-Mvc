@@ -37,9 +37,7 @@
             {
                 TodoViewModelList = mapper.Map<IEnumerable<TodoViewModel>>(Repository.GetAll());
             }
-            var x = TodoViewModelList.ToList()[0];
-            var a = x.GetType().GetProperty("Title").GetValue(x).ToString();
-            var c = TodoViewModelList.Where(x => x.GetType().GetProperty("Title").GetValue(x).ToString().StartsWith("1")).ToList();
+
         }
         @if (TodoViewModelList != null)
         {
