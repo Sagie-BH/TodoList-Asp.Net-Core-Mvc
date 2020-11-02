@@ -32,10 +32,7 @@ namespace TodoList.Controllers
         {
             return View();
         }
-        public IActionResult TodoList()
-        {
-            return PartialView();
-        }
+
         [HttpPost]
         public ActionResult TodoFormTask(TodoViewModel todoViewObject)
         {
@@ -48,6 +45,7 @@ namespace TodoList.Controllers
             }
             return NotFound();
         }
+
         [HttpPost]
         public ActionResult<TodoViewModel> Delete(int id)
         {
@@ -69,6 +67,14 @@ namespace TodoList.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult Search(TodoSearchDto searchObj)
+        {
+            var TodoList = _sqlRepository.GetAll().Where(x => x.GetType().GetProperty(searchObj.Property).GetValue(x).ToString().StartsWith(searchObj.SearchTerm)).ToList();
+
+            var viewlist = _mapper.Map<IEnumerable<TodoObjectReadDto>>(TodoList);
+            return Json(viewlist);
+        }
 
         [HttpPost]
         public ActionResult<TodoObjectCreateDto> Edit([FromBody]TodoObjectCreateDto todoCreateObject)
@@ -97,5 +103,6 @@ namespace TodoList.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

@@ -13,7 +13,6 @@ namespace DAL.Profiles
             CreateMap<TodoObjectCreateDto, TodoObjectModel>();
             CreateMap<TodoViewModel, TodoObjectModel>();
             CreateMap<TodoObjectModel, TodoViewModel>();
-
         }
     }
 }

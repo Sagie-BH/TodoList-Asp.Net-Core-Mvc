@@ -1,47 +1,55 @@
-﻿@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+﻿@*@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 
-@{
-    string antiForgeryToken = Xsrf.GetAndStoreTokens(Context).RequestToken;
-}
+    @{
+        string antiForgeryToken = Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }*@
 @model DAL.ViewModels.TodoViewModel;
 
-<h4>Create/Edit Object</h4>
-<hr />
-<form id="todo-form" data-ajax="true" asp-action="TodoFormTask" data-ajax-success="onSuccess" data-ajax-method="POST">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="row">
-        <div class="form-group col-3">
-            <label asp-for="Title" class="control-label"></label>
-            <input asp-for="Title" id="title-input" class="form-control" />
-            <span asp-validation-for="Title" class="text-danger"></span>
-        </div>
-        <div class="form-group col-9">
-            <label asp-for="Description" class="control-label"></label>
-            <input asp-for="Description" id="description-input" class="form-control" />
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Create/Edit Object</h4>
     </div>
-    <div class="row">
-        <div class="form-group col-5">
-            <label asp-for="StartTime" class="control-label"></label>
-            <input asp-for="StartTime" id="start-input" class="form-control" />
-            <span asp-validation-for="StartTime" class="text-danger"></span>
-        </div>
-        <div class="form-group col-5">
-            <label asp-for="EndTime" class="control-label"></label>
-            <input asp-for="EndTime" id="end-input" class="form-control" />
-            <span asp-validation-for="EndTime" class="text-danger"></span>
-        </div>
-        <div class="form-group col-2">
-            <label asp-for="Priority" class="control-label"></label>
-            <input asp-for="Priority" id="priority-input" class="form-control" />
-            <span asp-validation-for="Priority" class="text-danger"></span>
-        </div>
-    </div>
-    <input type="hidden" id="hiddenID" />
-    <div class="form-group">
-        <input id="create-btn" type="submit" class="btn btn-primary" value="Save" />
-        <input id="edit-btn" type="button" onclick="return sendEditRequest()" class="btn btn-primary hide-me" value="Edit" />
-    </div>
-</form>
+    <div class="panel-body">
+        <form id="todo-form" data-ajax="true" asp-action="TodoFormTask" data-ajax-success="onSuccess" data-ajax-method="POST">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="form-group col-3">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" id="title-input" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group col-9">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" id="description-input" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-5">
+                    <label asp-for="StartTime" class="control-label"></label>
+                    <input asp-for="StartTime" id="start-input" class="form-control" />
+                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                </div>
+                <div class="form-group col-5">
+                    <label asp-for="EndTime" class="control-label"></label>
+                    <input asp-for="EndTime" id="end-input" class="form-control" />
+                    <span asp-validation-for="EndTime" class="text-danger"></span>
+                </div>
+                <div class="form-group col-2">
+                    <label asp-for="Priority" class="control-label"></label>
+                    <input asp-for="Priority" id="priority-input" class="form-control" />
+                    <span asp-validation-for="Priority" class="text-danger"></span>
+                </div>
+            </div>
+            <input type="hidden" id="hiddenID" />
+            <div class="form-group">
+                <input id="create-btn" type="submit" class="btn btn-primary" value="Save" />
+                <input id="edit-btn" type="button" onclick="return sendEditRequest()" class="btn btn-primary hide-me" value="Edit" />
+            </div>
+        </form>
 
+    </div>
+    <hr />
+
+</div>
+<hr />

@@ -163,3 +163,4 @@ C:\Users\Sagie\source\repos\TodoList\TodoList\bin\Debug\netcoreapp3.1\Microsoft.
 C:\Users\Sagie\source\repos\TodoList\TodoList\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\Sagie\source\repos\TodoList\TodoList\obj\Debug\netcoreapp3.1\TodoList.csproj.CoreCompileInputs.cache
 C:\Users\Sagie\source\repos\TodoList\TodoList\obj\Debug\netcoreapp3.1\TodoList.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Sagie\source\repos\TodoList\TodoList\obj\Debug\netcoreapp3.1\Razor\Views\Todo\_TodoSearch.cshtml.g.cs

@@ -5,8 +5,7 @@
 @inject ISqlRepository<TodoObjectModel> Repository;
 @inject AutoMapper.IMapper mapper;
 
-@model TodoViewModel;
-
+@model IEnumerable<TodoViewModel>;
 
 <table id="todoTable" class="table">
     <thead>
@@ -32,7 +31,15 @@
     <tbody id="todoTableBody">
 
         @{
-            var TodoViewModelList = mapper.Map<IEnumerable<TodoViewModel>>(Repository.GetAll());
+
+            var TodoViewModelList = Model;
+            if (TodoViewModelList == null)
+            {
+                TodoViewModelList = mapper.Map<IEnumerable<TodoViewModel>>(Repository.GetAll());
+            }
+            var x = TodoViewModelList.ToList()[0];
+            var a = x.GetType().GetProperty("Title").GetValue(x).ToString();
+            var c = TodoViewModelList.Where(x => x.GetType().GetProperty("Title").GetValue(x).ToString().StartsWith("1")).ToList();
         }
         @if (TodoViewModelList != null)
         {
@@ -56,9 +63,9 @@
                         @Html.DisplayFor(modelItem => item.Priority)
                     </td>
                     <td>
-                        <a asp-route-id="@item.Id" class="text-warning" onclick="return editTodoObj(@item.Id)">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id" class="text-info">Details</a> |
-                        <a asp-route-id="@item.Id" onclick="return deleteTodoObj(@item.Id);" class="text-danger">Delete</a>
+                        <a class="text-warning" onclick="return editTodoObj(@item.Id)">Edit</a> |
+                        @*<a asp-action="Details" asp-route-id="@item.Id" class="text-info">Details</a> |*@
+                        <a  onclick="return deleteTodoObj(@item.Id);" class="text-danger">Delete</a>
                     </td>
                 </tr>
             }

@@ -1,6 +1,31 @@
-﻿.todoRow:hover {
+﻿
+
+.todoRow:hover {
     background-color: gainsboro;
 }
 .hide-me {
     display:none;
+}
+a:hover {
+    cursor: pointer;
+}
+#search-btn {
+    transform: translateX(-20px);
+}
+#Property {
+    transform: translateX(20px);
+}
+.btn {
+    min-width: 80px;
+}
+.panel-body {
+    background-color: #dadada;
+    padding: 10px;
+    border-radius: 5px;
+}
+.panel-heading {
+    background-color: #313131;
+    color: white;
+    padding: 5px;
+    border-radius: 2px;
 }

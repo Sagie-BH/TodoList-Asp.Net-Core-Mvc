@@ -9,9 +9,7 @@ class TodoModel {
         this.Priority = Priority;
     }
 }
-
-// Converting Ajax Context To Todo Object Model
-var onSuccess = function (context) {
+const contextToTodoObj = (context) => {
     const todoObject = new TodoModel();
 
     todoObject.Id = context.id;
@@ -21,20 +19,24 @@ var onSuccess = function (context) {
     todoObject.EndTime = context.endTime;
     todoObject.Priority = context.priority;
 
-    addRow(todoObject);
+    return todoObject;
+}
+// Converting Ajax Context To Todo Object Model
+var onSuccess = function (context) {
+
+    addRow(contextToTodoObj(context));
 };
 // Adding New Row To Todo Table 
 const addRow = (todoObj) => {
-    document.getElementById('todoTableBody').innerHTML += `<tr id=row${todoObj.id}>
+    document.getElementById('todoTableBody').innerHTML += `<tr class="todoRow" id=row${todoObj.Id}>
         <td> ${fixDate(new Date(todoObj.StartTime), true)} </td>
         <td> ${fixDate(new Date(todoObj.EndTime), true)} </td>
         <td> ${todoObj.Title} </td>
         <td> ${todoObj.Description} </td>
         <td> ${todoObj.Priority} </td>
                 <td>
-                      <a href="/Todo/Edit/${todoObj.Id}" class="text-warning" onclick="return editTodoObj(${todoObj.Id})">Edit</a> |
-                      <a href="/Todo/Details/${todoObj.Id}" class="text-info">Details</a> |
-                      <a href="/Todo/Delete/${todoObj.Id}" class="text-danger" onclick="return deleteTodoObj(${todoObj.Id});">Delete</a>
+                      <a class="text-warning" onclick="return editTodoObj(${todoObj.Id})">Edit</a> |
+                      <a class="text-danger" onclick="return deleteTodoObj(${todoObj.Id});">Delete</a>
                 </td>   </tr>`;
 };
 
@@ -108,15 +110,7 @@ const getObjFromFields = () => {
 const sendEditRequest = () => {
     let todoObject = getObjFromFields()
     let todoData = JSON.stringify(todoObject)
-    //let xhr = new XMLHttpRequest();
-    //xhr.open('POST', `/Todo/Edit`, false);
-    //xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    //xhr.onreadystatechange = function () {
-    //    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-    //        alert(xhr.responseText);
-    //    }
-    //}
-    //xhr.send(todoData);
+
     $.ajax({
         url: `/Todo/Edit`,
         type: 'POST',
@@ -132,4 +126,13 @@ const sendEditRequest = () => {
             document.getElementById('todo-form').reset();
         }
     });
+}
+
+var searchTable = function (context) {
+    console.log(context.length);
+
+    document.getElementById('todoTableBody').innerHTML = "";
+    for (var i = 0; i < context.length; i++) {
+        addRow(contextToTodoObj(context[i]));
+    }
 }
