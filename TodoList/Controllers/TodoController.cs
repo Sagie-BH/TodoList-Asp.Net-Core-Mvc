@@ -34,14 +34,15 @@ namespace TodoList.Controllers
         }
 
         [HttpPost]
-        public ActionResult TodoFormTask(TodoViewModel todoViewObject)
+        public async Task<ActionResult> TodoFormTask(TodoViewModel todoViewObject)
         {
             var TodoModelObject = _mapper.Map<TodoObjectModel>(todoViewObject);
             _sqlRepository.Create(TodoModelObject);
 
-            if(_sqlRepository.SaveChanges())
+
+             if(await _sqlRepository.SaveChanges())
             {
-                return Ok(_mapper.Map<TodoViewModel>(TodoModelObject));
+                return  Ok( _mapper.Map<TodoViewModel>(TodoModelObject));
             }
             return NotFound();
         }
@@ -70,14 +71,14 @@ namespace TodoList.Controllers
         [HttpPost]
         public JsonResult Search(TodoSearchDto searchObj)
         {
-            var TodoList = _sqlRepository.GetAll().Where(x => x.GetType().GetProperty(searchObj.Property).GetValue(x).ToString().StartsWith(searchObj.SearchTerm)).ToList();
+            var TodoList =  _sqlRepository.GetAll().Where(x => x.GetType().GetProperty(searchObj.Property).GetValue(x).ToString().StartsWith(searchObj.SearchTerm)).ToList();
 
             var viewlist = _mapper.Map<IEnumerable<TodoObjectReadDto>>(TodoList);
             return Json(viewlist);
         }
 
         [HttpPost]
-        public ActionResult<TodoObjectCreateDto> Edit([FromBody]TodoObjectCreateDto todoCreateObject)
+        public async Task<ActionResult<TodoObjectCreateDto>> Edit([FromBody]TodoObjectCreateDto todoCreateObject)
         {
             var todoToEdit = _sqlRepository.GetById(todoCreateObject.Id);
 
@@ -85,7 +86,7 @@ namespace TodoList.Controllers
 
             _sqlRepository.Update(todoToEdit);
 
-            if (_sqlRepository.SaveChanges())
+            if (await _sqlRepository.SaveChanges())
             {
                 return NoContent();
             }

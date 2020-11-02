@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
@@ -11,6 +12,6 @@ namespace DAL.Repositories
         IEnumerable<TEntity> GetAll();
         void Remove(int id);
         void Update(TEntity entity);
-        bool SaveChanges();
+        Task<bool> SaveChanges();
     }
 }

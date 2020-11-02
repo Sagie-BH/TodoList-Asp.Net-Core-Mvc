@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace TodoList.Repositories
 {
@@ -37,10 +38,16 @@ namespace TodoList.Repositories
             context.TodoTable.Remove(GetById(id));
         }
 
-        public bool SaveChanges()
+        public async Task<bool> SaveChanges()
         {
-            try { context.SaveChanges(); return true; }
-            catch { return false; }
+            var taskResult = await Task.Run(() =>
+            {
+                bool changesSaved;
+                try { context.SaveChanges(); changesSaved = true; }
+                catch { changesSaved = false; }
+                return changesSaved;
+            });
+            return taskResult;
         }
 
         public void Update(TodoObjectModel todoObject)
