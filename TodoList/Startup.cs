@@ -32,6 +32,8 @@ namespace TodoList
         {
             services.AddControllersWithViews();
 
+            services.AddControllers();
+
             services.AddDbContextPool<DatabaseContext>(ops => ops.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped(typeof(ISqlRepository<UserModel>), typeof(UserRepository));
@@ -40,6 +42,7 @@ namespace TodoList
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +59,7 @@ namespace TodoList
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();

@@ -1,4 +1,9 @@
-﻿@model DAL.ViewModels.TodoViewModel;
+﻿@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+
+@{
+    string antiForgeryToken = Xsrf.GetAndStoreTokens(Context).RequestToken;
+}
+@model DAL.ViewModels.TodoViewModel;
 
 <h4>Create/Edit Object</h4>
 <hr />
@@ -35,8 +40,8 @@
     </div>
     <input type="hidden" id="hiddenID" />
     <div class="form-group">
-        <input id="create-btn" type="submit" class="btn btn-primary"  value="Save" />
-        <input id="edit-btn" type="button" onclick="return sendEditRequest()" class="btn btn-primary hide-me" value="Edit"/>
+        <input id="create-btn" type="submit" class="btn btn-primary" value="Save" />
+        <input id="edit-btn" type="button" onclick="return sendEditRequest()" class="btn btn-primary hide-me" value="Edit" />
     </div>
 </form>
 

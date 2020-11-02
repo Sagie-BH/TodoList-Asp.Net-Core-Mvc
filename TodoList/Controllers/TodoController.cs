@@ -71,10 +71,19 @@ namespace TodoList.Controllers
 
 
         [HttpPost]
-        public ActionResult<TodoObjectCreateDto> Edit([FromBody] TodoObjectCreateDto todoViewObject)
+        public ActionResult<TodoObjectCreateDto> Edit([FromBody]TodoObjectCreateDto todoCreateObject)
         {
-            var a = todoViewObject;
-            return Json(a);
+            var todoToEdit = _sqlRepository.GetById(todoCreateObject.Id);
+
+            _mapper.Map(todoCreateObject, todoToEdit);
+
+            _sqlRepository.Update(todoToEdit);
+
+            if (_sqlRepository.SaveChanges())
+            {
+                return NoContent();
+            }
+            return NotFound();
         }
 
 

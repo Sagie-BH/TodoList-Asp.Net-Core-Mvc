@@ -1,4 +1,5 @@
-﻿class TodoModel {
+﻿
+class TodoModel {
     constructor(Id, StartTime, EndTime, Title, Description, Priority) {
         this.Id = Id;
         this.StartTime = StartTime;
@@ -13,12 +14,12 @@
 var onSuccess = function (context) {
     const todoObject = new TodoModel();
 
-    todoObject.Id = context.Id;
-    todoObject.Title = context.Title;
-    todoObject.Description = context.Description;
-    todoObject.StartTime = context.StartTime;
-    todoObject.EndTime = context.EndTime;
-    todoObject.Priority = context.Priority;
+    todoObject.Id = context.id;
+    todoObject.Title = context.title;
+    todoObject.Description = context.description;
+    todoObject.StartTime = context.startTime;
+    todoObject.EndTime = context.endTime;
+    todoObject.Priority = context.priority;
 
     addRow(todoObject);
 };
@@ -52,7 +53,7 @@ const deleteTodoObj = (Id) => {
     return false;
 };
 
-
+// Edit Item => Input Fields 
 const editTodoObj = (Id) => {
     const rowToEdit = document.getElementById(`row${Id}`);
 
@@ -70,7 +71,7 @@ const editTodoObj = (Id) => {
     return false;
 }
 
-
+// Date Fixing To - Add To Table / Send To Server
 const fixDate = (date, isForTable) => {
     let day = fixDateNum(date.getDate());      
     let month = fixDateNum(date.getMonth() + 1);
@@ -85,13 +86,13 @@ const fixDate = (date, isForTable) => {
         return year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second;
     };
 }
-
+// Fixing dates (x => 0x)
 const fixDateNum = (number) => {
     return number > 9 ? number : "0" + number;
 };
-
+// Edit Input Fields => Todo Object
 const getObjFromFields = () => {
-    const todoObject = new TodoModel();
+    let todoObject = new TodoModel();
 
     todoObject.StartTime = document.getElementById('start-input').value;
     todoObject.EndTime = document.getElementById('end-input').value;
@@ -103,27 +104,29 @@ const getObjFromFields = () => {
     return todoObject;
 }
 
+// Sending Edit Ajax Post Request
 const sendEditRequest = () => {
     let todoData = JSON.stringify(getObjFromFields())
     //let xhr = new XMLHttpRequest();
-    //xhr.open('POST', `/Todo/Edit`, true);
+    //xhr.open('POST', `/Todo/Edit`, false);
     //xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     //xhr.onreadystatechange = function () {
     //    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
     //        alert(xhr.responseText);
     //    }
     //}
-    //xhr.send(getObjFromFields());
+    //xhr.send(todoData);
     $.ajax({
         url: `/Todo/Edit`,
-        type: "POST",
+        type: 'POST',
         data: todoData,
-        contentType: "application/json;",
+        dataType: 'json',
+        contentType: "application/json; charset=utf-8",
         error: function (response) {
             console.log(response.responseText);
         },
         success: function (response) {
-            console.log(response);
+            document.getElementsByClassName('form-control').value = null;
         }
     });
 }
