@@ -1,4 +1,4 @@
-﻿@model DAL.Dtos.TodoSearchDto;
+﻿@model DAL.Dtos.SearchDto;
 
 @{
     List<string> propertyList = new List<string>();
@@ -22,7 +22,6 @@
             <input asp-for="SearchTerm" id="search-input" type="search" class="form-control offset-1 col-4" />
             <input id="search-btn" type="submit" value="Search" class="btn btn-primary col-2 offset-2" />
         </form>
-
     </div>
 </div>
 <br />

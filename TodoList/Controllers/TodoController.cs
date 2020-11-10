@@ -69,13 +69,14 @@ namespace TodoList.Controllers
         }
 
         [HttpPost]
-        public JsonResult Search(TodoSearchDto searchObj)
+        public JsonResult Search(SearchDto searchObj)
         {
             if (!string.IsNullOrEmpty(searchObj.SearchTerm))
             {
                 var TodoList = _sqlRepository.GetAll().Where(x => x.GetType().GetProperty(searchObj.Property).GetValue(x).ToString().StartsWith(searchObj.SearchTerm)).ToList();
 
                 var viewlist = _mapper.Map<IEnumerable<TodoObjectReadDto>>(TodoList);
+
                 return Json(viewlist);
             }
             else return Json(_sqlRepository.GetAll());

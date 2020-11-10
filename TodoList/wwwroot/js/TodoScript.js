@@ -32,11 +32,11 @@ var onSuccess = function (context) {
 // Adding New Row To Todo Table 
 const addRow = (todoObj) => {
     document.getElementById('todoTableBody').innerHTML += `<tr class="todoRow" id=row${todoObj.Id}>
-        <td> ${fixDate(new Date(todoObj.StartTime), true)} </td>
-        <td> ${fixDate(new Date(todoObj.EndTime), true)} </td>
-        <td> ${todoObj.Title} </td>
-        <td> ${todoObj.Description} </td>
-        <td> ${todoObj.Priority} </td>
+        <td> ${fixDate(new Date(todoObj.StartTime), true) } </td>
+        <td> ${fixDate(new Date(todoObj.EndTime), true) } </td>
+        <td> ${todoObj.Title } </td>
+        <td> ${todoObj.Description } </td>
+        <td> ${todoObj.Priority } </td>
                 <td>
                       <a class="text-warning" onclick="return editTodoObj(${todoObj.Id})">Edit</a> |
                       <a class="text-danger" onclick="return deleteTodoObj(${todoObj.Id});">Delete</a>
