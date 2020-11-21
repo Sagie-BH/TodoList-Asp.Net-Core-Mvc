@@ -11,8 +11,8 @@ namespace TodoList.Profiles
     {
         public UserProfile()
         {
-            CreateMap<UserModel, UserCreateDto>();
-            CreateMap<UserCreateDto, UserModel>();
+            CreateMap<ApplicationUser, UserCreateDto>();
+            CreateMap<UserCreateDto, ApplicationUser>();
         }
     }
 }

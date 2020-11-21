@@ -13,14 +13,12 @@ namespace DAL.Helpers
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserModel>().HasData(
-           new UserModel
+            modelBuilder.Entity<ApplicationUser>().HasData(
+           new ApplicationUser
            {
-               ID = 1,
                UserName = "Sagie",
                Email = "sagie@gmail.com",
-               Password = "12345",
-               Role = "admin"
+               PasswordHash = "12345"
            });
         }
     }

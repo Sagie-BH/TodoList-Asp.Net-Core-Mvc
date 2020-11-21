@@ -1,4 +1,5 @@
-﻿using DAL.ViewModels;
+﻿using DAL.Models;
+using DAL.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,10 @@ namespace TodoList.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -31,7 +32,7 @@ namespace TodoList.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = viewModel.Email, Email = viewModel.Email };
+                var user = new ApplicationUser { UserName = viewModel.Email, Email = viewModel.Email };
                 var result = await userManager.CreateAsync(user, viewModel.Password);
 
                 if (result.Succeeded)
@@ -69,8 +70,27 @@ namespace TodoList.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
 
             }
-
             return View(viewModel);
+        }
+        [AcceptVerbs("Get", "Post")]
+        [AllowAnonymous]
+        public async Task<IActionResult> IsEmailInUse(string email)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user is null)
+            {
+                return Json(true);
+            }
+            else
+            {
+                return Json($"Email {email} is already in use");
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
         }
     }
 }

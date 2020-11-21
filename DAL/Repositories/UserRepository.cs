@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TodoList.Repositories
 {
-    public class UserRepository : ISqlRepository<UserModel>
+    public class UserRepository : ISqlRepository<ApplicationUser>
     {
         private readonly DatabaseContext context;
 
@@ -16,41 +16,71 @@ namespace TodoList.Repositories
             this.context = context;
         }
 
-        public void Create(UserModel user)
+        public void Create(ApplicationUser entity)
         {
-            context.UsersModel.Add(user);
+            throw new System.NotImplementedException();
         }
 
-        public IEnumerable<UserModel> GetAll()
+        public IEnumerable<ApplicationUser> GetAll()
         {
-            return context.UsersModel;
+            throw new System.NotImplementedException();
         }
 
-        public UserModel GetById(int id)
+        public ApplicationUser GetById(int id)
         {
-            return context.UsersModel.SingleOrDefault(user => user.ID == id);
+            throw new System.NotImplementedException();
         }
 
         public void Remove(int id)
         {
-            context.UsersModel.Remove(GetById(id));
+            throw new System.NotImplementedException();
         }
 
-        public async Task<bool> SaveChanges()
+        public Task<bool> SaveChanges()
         {
-            var taskResult = await Task.Run(() =>
-            {
-                bool changesSaved;
-                try { context.SaveChanges(); changesSaved = true; }
-                catch { changesSaved = false; }
-                return changesSaved;
-            });
-            return taskResult;
+            throw new System.NotImplementedException();
         }
 
-        public void Update(UserModel entity)
+        public void Update(ApplicationUser entity)
         {
-            context.Update(entity);
+            throw new System.NotImplementedException();
         }
+
+        //public void Create(ApplicationUser user)
+        //{
+        //    context.UsersModel.Add(user);
+        //}
+
+        //public IEnumerable<UserModel> GetAll()
+        //{
+        //    return context.UsersModel;
+        //}
+
+        //public UserModel GetById(int id)
+        //{
+        //    return context.UsersModel.SingleOrDefault(user => user.ID == id);
+        //}
+
+        //public void Remove(int id)
+        //{
+        //    context.UsersModel.Remove(GetById(id));
+        //}
+
+        //public async Task<bool> SaveChanges()
+        //{
+        //    var taskResult = await Task.Run(() =>
+        //    {
+        //        bool changesSaved;
+        //        try { context.SaveChanges(); changesSaved = true; }
+        //        catch { changesSaved = false; }
+        //        return changesSaved;
+        //    });
+        //    return taskResult;
+        //}
+
+        //public void Update(UserModel entity)
+        //{
+        //    context.Update(entity);
+        //}
     }
 }

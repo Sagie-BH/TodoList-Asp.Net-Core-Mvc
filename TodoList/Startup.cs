@@ -37,11 +37,11 @@ namespace TodoList
 
             services.AddControllers();
 
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DatabaseContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<DatabaseContext>();
 
             services.AddDbContextPool<DatabaseContext>(ops => ops.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped(typeof(ISqlRepository<UserModel>), typeof(UserRepository));
+            services.AddScoped(typeof(ISqlRepository<ApplicationUser>), typeof(UserRepository));
 
             services.AddScoped(typeof(ISqlRepository<TodoObjectModel>), typeof(TodoRepository));
 

@@ -11,12 +11,16 @@
     <Compile Remove="Migrations\20201029163604_SubmitTime.Designer.cs" />
     <Compile Remove="Migrations\20201121090101_AddingIdentity.cs" />
     <Compile Remove="Migrations\20201121090101_AddingIdentity.Designer.cs" />
+    <Compile Remove="Migrations\20201121163547_applicationUser.cs" />
+    <Compile Remove="Migrations\20201121163547_applicationUser.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
       <PrivateAssets>all</PrivateAssets>
