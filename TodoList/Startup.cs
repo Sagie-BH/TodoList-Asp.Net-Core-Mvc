@@ -15,6 +15,9 @@ using Microsoft.Extensions.Hosting;
 using DAL.DataContext;
 using DAL.Repositories;
 using DAL.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace TodoList
 {
@@ -34,6 +37,8 @@ namespace TodoList
 
             services.AddControllers();
 
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DatabaseContext>();
+
             services.AddDbContextPool<DatabaseContext>(ops => ops.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped(typeof(ISqlRepository<UserModel>), typeof(UserRepository));
@@ -41,6 +46,13 @@ namespace TodoList
             services.AddScoped(typeof(ISqlRepository<TodoObjectModel>), typeof(TodoRepository));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddMvc(opt => 
+            {
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();   // Use Authentication for the all website
+                opt.Filters.Add(new AuthorizeFilter(policy));   // Adding new policy rule
+            }
+            ).AddXmlSerializerFormatters();
 
             services.AddControllers().AddNewtonsoftJson();
         }
@@ -63,6 +75,8 @@ namespace TodoList
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

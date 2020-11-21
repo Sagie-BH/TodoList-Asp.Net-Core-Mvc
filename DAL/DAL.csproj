@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -9,10 +9,14 @@
     <Compile Remove="Migrations\20201029151355_Repositories.Designer.cs" />
     <Compile Remove="Migrations\20201029163604_SubmitTime.cs" />
     <Compile Remove="Migrations\20201029163604_SubmitTime.Designer.cs" />
+    <Compile Remove="Migrations\20201121090101_AddingIdentity.cs" />
+    <Compile Remove="Migrations\20201121090101_AddingIdentity.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
       <PrivateAssets>all</PrivateAssets>

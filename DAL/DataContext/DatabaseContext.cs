@@ -1,30 +1,21 @@
-﻿using DAL.Models;
+﻿using DAL.Helpers;
+using DAL.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.DataContext
 {
-    public class DatabaseContext: DbContext
+    public class DatabaseContext: IdentityDbContext
     {
-        public class OptionsBuild
-        {
-            public OptionsBuild()
-            {
-                settings = new AppCongfiguration();
-                opsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
-
-                opsBuilder.UseSqlServer(settings.sqlConnectionString);
-                dbOptions = opsBuilder.Options;
-            }
-            public DbContextOptionsBuilder<DatabaseContext> opsBuilder { get; set; } // Helps Configure the connection to the database
-            public DbContextOptions<DatabaseContext> dbOptions { get; set; } // Database Configuration information - provider...
-
-            private AppCongfiguration settings { get; set; }
-        }
-        public static OptionsBuild ops = new OptionsBuild();
-
         public DatabaseContext(DbContextOptions<DatabaseContext> options): base(options) { }
-        public DbSet<UserModel> Users { get; set; }
+        public DbSet<UserModel> UsersModel { get; set; }
         public DbSet<TodoObjectModel> TodoTable { get; set; }
-        public DbSet<AuthenticationLevel> AuthenticationLevels { get; set; }
+
+        // Seeding Data With Extension method located at DAL.Helpers.Extentions
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Seed();
+        }
     }
 }

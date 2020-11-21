@@ -3,7 +3,7 @@
     @{
         string antiForgeryToken = Xsrf.GetAndStoreTokens(Context).RequestToken;
     }*@
-@model DAL.ViewModels.TodoViewModel;
+@model TodoViewModel;
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -48,9 +48,6 @@
                 <input id="edit-btn" type="button" onclick="return sendEditRequest()" class="btn btn-primary hide-me" value="Edit" />
             </div>
         </form>
-
     </div>
-    <hr />
-
 </div>
 <hr />

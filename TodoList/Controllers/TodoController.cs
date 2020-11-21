@@ -40,26 +40,27 @@ namespace TodoList.Controllers
             _sqlRepository.Create(TodoModelObject);
 
 
-             if(await _sqlRepository.SaveChanges())
+            if (await _sqlRepository.SaveChanges())
             {
-                return  Ok( _mapper.Map<TodoViewModel>(TodoModelObject));
+                return Ok(_mapper.Map<TodoViewModel>(TodoModelObject));
             }
-            return NotFound();
+            return base.NotFound();
         }
 
         [HttpPost]
-        public ActionResult<TodoViewModel> Delete(int id)
+        public async Task<ActionResult<TodoViewModel>> Delete(int id)
         {
             try
             {
-                var todoToDelete =  _sqlRepository.GetById(id);
+                var todoToDelete = _sqlRepository.GetById(id);
                 if (todoToDelete == null)
                 {
                     return NotFound($"Todo Object with Id = {id} not found");
                 }
                 _sqlRepository.Remove(id);
-                _sqlRepository.SaveChanges();
-                return Ok();
+                if (await _sqlRepository.SaveChanges())
+                    return Ok();
+                else return base.NotFound();
             }
             catch (Exception)
             {
@@ -83,7 +84,7 @@ namespace TodoList.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TodoObjectCreateDto>> Edit([FromBody]TodoObjectCreateDto todoCreateObject)
+        public async Task<ActionResult<TodoObjectCreateDto>> Edit([FromBody] TodoObjectCreateDto todoCreateObject)
         {
             var todoToEdit = _sqlRepository.GetById(todoCreateObject.Id);
 
@@ -95,7 +96,7 @@ namespace TodoList.Controllers
             {
                 return NoContent();
             }
-            return NotFound();
+            return base.NotFound();
         }
 
 
@@ -104,11 +105,11 @@ namespace TodoList.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult NotFound()
+        //{
+        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
 
     }
 }

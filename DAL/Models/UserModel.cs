@@ -20,7 +20,7 @@ namespace DAL.Models
         [Required]
         public string Password { get; set; }
         [Required]
-        public int AuthLevelRefId { get; set; }
+        public string Role { get; set; }
         public ICollection<TodoObjectModel> TodoList { get; set; }
     }
 }

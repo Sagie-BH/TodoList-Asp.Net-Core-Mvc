@@ -18,22 +18,22 @@ namespace TodoList.Repositories
 
         public void Create(UserModel user)
         {
-            context.Users.Add(user);
+            context.UsersModel.Add(user);
         }
 
         public IEnumerable<UserModel> GetAll()
         {
-            return context.Users;
+            return context.UsersModel;
         }
 
         public UserModel GetById(int id)
         {
-            return context.Users.SingleOrDefault(user => user.ID == id);
+            return context.UsersModel.SingleOrDefault(user => user.ID == id);
         }
 
         public void Remove(int id)
         {
-            context.Users.Remove(GetById(id));
+            context.UsersModel.Remove(GetById(id));
         }
 
         public async Task<bool> SaveChanges()
