@@ -37,7 +37,16 @@ namespace TodoList
 
             services.AddControllers();
 
-            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<DatabaseContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                // Changing default password settings.
+
+                //options.Password.RequireDigit = false;
+                //options.Password.RequireNonAlphanumeric = false;
+                //options.Password.RequireUppercase = false;
+                //options.Password.RequiredLength = 5;
+                //options.Password.RequiredUniqueChars = 2;
+            }).AddEntityFrameworkStores<DatabaseContext>();
 
             services.AddDbContextPool<DatabaseContext>(ops => ops.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
