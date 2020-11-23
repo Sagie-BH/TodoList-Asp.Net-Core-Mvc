@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DAL.ViewModels
 {
-    public class RegisterViewModel
+    public class RegisterViewModel : IUserViewModel
     {
         [Required]
         [EmailAddress]
@@ -18,7 +18,7 @@ namespace DAL.ViewModels
         [Required]
         [Display(Name = "Confirm Password")]
         [DataType(DataType.Password)]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Password and confirmation do not match")]
+        [Compare("Password", ErrorMessage = "Password and confirmation do not match")]
         public string ConfirmPassword { get; set; }
 
     }

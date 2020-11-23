@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public interface ISqlRepository<TEntity> where TEntity : class
+    public interface IRepository<TEntity> where TEntity : class
     {
         void Create(TEntity entity);
         TEntity GetById(int id);

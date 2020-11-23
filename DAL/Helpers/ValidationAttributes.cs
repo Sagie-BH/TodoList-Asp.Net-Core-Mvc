@@ -10,7 +10,7 @@ namespace DAL.Helpers
         {
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
             {
-                TodoViewModel task = (TodoViewModel)validationContext.ObjectInstance;
+                TodoObjectViewModel task = (TodoObjectViewModel)validationContext.ObjectInstance;
                 if (task.StartTime > task.EndTime)
                 {
                     return new ValidationResult("End Time must be after start time");
@@ -22,7 +22,7 @@ namespace DAL.Helpers
         {
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
             {
-                TodoViewModel task = (TodoViewModel)validationContext.ObjectInstance;
+                TodoObjectViewModel task = (TodoObjectViewModel)validationContext.ObjectInstance;
                 if (task.StartTime < DateTime.Now)
                 {
                     return new ValidationResult("Start Time can't be in the past");

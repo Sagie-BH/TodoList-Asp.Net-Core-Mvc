@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace TodoList.Repositories
 {
-    public class TodoRepository : ISqlRepository<TodoObjectModel>
+    public class TodoRepository : IRepository<TodoObjectModel>
     {
         private readonly DatabaseContext context;
 

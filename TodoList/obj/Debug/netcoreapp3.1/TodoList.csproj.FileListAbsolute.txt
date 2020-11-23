@@ -177,3 +177,4 @@ C:\Users\Sagie\source\repos\TodoList\TodoList\obj\Debug\netcoreapp3.1\TodoList.M
 C:\Users\Sagie\source\repos\TodoList\TodoList\obj\Debug\netcoreapp3.1\Razor\Views\Administration\CreateRole.cshtml.g.cs
 C:\Users\Sagie\source\repos\TodoList\TodoList\obj\Debug\netcoreapp3.1\Razor\Views\Administration\ListRoles.cshtml.g.cs
 C:\Users\Sagie\source\repos\TodoList\TodoList\obj\Debug\netcoreapp3.1\Razor\Views\Administration\EditRole.cshtml.g.cs
+C:\Users\Sagie\source\repos\TodoList\TodoList\obj\Debug\netcoreapp3.1\Razor\Views\Administration\EditUsersInRole.cshtml.g.cs

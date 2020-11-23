@@ -8,7 +8,9 @@ using DAL.Dtos;
 using DAL.Models;
 using DAL.Repositories;
 using DAL.ViewModels;
+using DAL.ViewModels.TodoViewModels;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TodoList.Models;
@@ -18,47 +20,60 @@ namespace TodoList.Controllers
     public class TodoController : Controller
     {
         private readonly ILogger<TodoController> _logger;
-        private readonly ISqlRepository<TodoObjectModel> _sqlRepository;
+        private readonly IRepository<TodoObjectModel> repository;
         private readonly IMapper _mapper;
 
-        public TodoController(ILogger<TodoController> logger, ISqlRepository<TodoObjectModel> sqlRepository, IMapper mapper)
+        public TodoController(ILogger<TodoController> logger, IRepository<TodoObjectModel> repository,
+                        IMapper mapper)
         {
             _logger = logger;
-            _sqlRepository = sqlRepository;
+            this.repository = repository;
             _mapper = mapper;
         }
 
-        public IActionResult Todo()
+        public IActionResult Todo(ApplicationUser user)
         {
-            return View();
+            var todoList = repository.GetAll().Where(x => x.ApplicationUserId == user.Id);
+
+            var todoObject = new TodoObjectViewModel
+            {
+                UserEmail = user.Email
+            };
+            TodoListViewModel model = new TodoListViewModel
+            {
+                UserEmail = user.Email,
+                TodoList = _mapper.Map<IEnumerable<TodoObjectViewModel>>(todoList).ToList(),
+                TodoObject = todoObject
+            };
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<ActionResult> TodoFormTask(TodoViewModel todoViewObject)
+        public async Task<ActionResult> CreateTodo(TodoObjectViewModel todoViewObject)
         {
             var TodoModelObject = _mapper.Map<TodoObjectModel>(todoViewObject);
-            _sqlRepository.Create(TodoModelObject);
 
+            repository.Create(TodoModelObject);
 
-            if (await _sqlRepository.SaveChanges())
+            if (await repository.SaveChanges())
             {
-                return Ok(_mapper.Map<TodoViewModel>(TodoModelObject));
+                return Ok(_mapper.Map<TodoObjectViewModel>(TodoModelObject));
             }
             return base.NotFound();
         }
 
         [HttpPost]
-        public async Task<ActionResult<TodoViewModel>> Delete(int id)
+        public async Task<ActionResult<TodoObjectViewModel>> Delete(int id)
         {
             try
             {
-                var todoToDelete = _sqlRepository.GetById(id);
+                var todoToDelete = repository.GetById(id);
                 if (todoToDelete == null)
                 {
                     return NotFound($"Todo Object with Id = {id} not found");
                 }
-                _sqlRepository.Remove(id);
-                if (await _sqlRepository.SaveChanges())
+                repository.Remove(id);
+                if (await repository.SaveChanges())
                     return Ok();
                 else return base.NotFound();
             }
@@ -70,29 +85,29 @@ namespace TodoList.Controllers
         }
 
         [HttpPost]
-        public JsonResult Search(SearchDto searchObj)
+        public JsonResult Search(TodoSearchDto searchObj)
         {
             if (!string.IsNullOrEmpty(searchObj.SearchTerm))
             {
-                var TodoList = _sqlRepository.GetAll().Where(x => x.GetType().GetProperty(searchObj.Property).GetValue(x).ToString().StartsWith(searchObj.SearchTerm)).ToList();
+                var TodoList = repository.GetAll().Where(x => x.GetType().GetProperty(searchObj.Property).GetValue(x).ToString().StartsWith(searchObj.SearchTerm)).ToList();
 
                 var viewlist = _mapper.Map<IEnumerable<TodoObjectReadDto>>(TodoList);
 
                 return Json(viewlist);
             }
-            else return Json(_sqlRepository.GetAll());
+            else return Json(repository.GetAll());
         }
 
         [HttpPost]
         public async Task<ActionResult<TodoObjectCreateDto>> Edit([FromBody] TodoObjectCreateDto todoCreateObject)
         {
-            var todoToEdit = _sqlRepository.GetById(todoCreateObject.Id);
+            var todoToEdit = repository.GetById(todoCreateObject.Id);
 
             _mapper.Map(todoCreateObject, todoToEdit);
 
-            _sqlRepository.Update(todoToEdit);
+            repository.Update(todoToEdit);
 
-            if (await _sqlRepository.SaveChanges())
+            if (await repository.SaveChanges())
             {
                 return NoContent();
             }

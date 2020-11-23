@@ -1,18 +1,23 @@
-﻿@{
+﻿@model TodoListViewModel;
+
+@{
     ViewData["Title"] = "Todo List";
 }
+
 @section Styles {
     <link href="~/css/todoStyle.css" rel="stylesheet" />
 }
+
 <div class="text-center">
     <h1 class="display-4">To Do</h1>
     <h4>Last Page Serever Refresh: @DateTime.Now</h4>
 </div>
-<partial name="_TodoObjectForm" />
 
-<partial name="_TodoSearch" />
+<partial name="_TodoObjectForm" for="TodoObject" />
 
-<partial name="_TodoList" />
+<partial name="_TodoSearch" for="SearchDto" />
+
+<partial name="_TodoList" for="TodoList" />
 
 
 @section Scripts {

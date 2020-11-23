@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DAL.ViewModels
 {
-    public class LoginViewModel
+    public class LoginViewModel : IUserViewModel
     {
         [Required]
         [EmailAddress]

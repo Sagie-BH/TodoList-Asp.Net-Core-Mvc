@@ -4,14 +4,16 @@ using DAL.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace TodoList.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20201123175131_anaAref")]
+    partial class anaAref
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -274,15 +276,15 @@ namespace TodoList.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9ad4bc0c-73a9-4172-9bf2-b3301402e95b",
+                            Id = "dc69bb2e-8ce2-4279-8f19-5dd504e0e9b8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "136f9cd3-a747-41be-ae3f-644321ae76f5",
+                            ConcurrencyStamp = "9b1c034f-77b7-4a4c-abf8-520592a649e2",
                             Email = "sagie@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PasswordHash = "12345",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "56230941-9e68-4d66-94c2-9922aa024447",
+                            SecurityStamp = "67f06aeb-1306-4c63-99b5-c39d666a4445",
                             TwoFactorEnabled = false,
                             UserName = "Sagie"
                         });

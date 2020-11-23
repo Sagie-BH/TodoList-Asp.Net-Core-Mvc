@@ -4,7 +4,7 @@ using static DAL.Helpers.ValidationAttributes;
 
 namespace DAL.ViewModels
 {
-    public class TodoViewModel
+    public class TodoObjectViewModel
     {
         public int Id { get; set; }
         //public bool IsNew { get; set; }
@@ -23,6 +23,8 @@ namespace DAL.ViewModels
         [Required]
         public int Priority { get; set; }
         public bool Done { get; set; }
+        public string UserEmail { get; set; }
+
 
     }
 }

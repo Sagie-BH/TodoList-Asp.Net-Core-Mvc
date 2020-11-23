@@ -46,13 +46,12 @@ namespace TodoList
                 //options.Password.RequireUppercase = false;
                 //options.Password.RequiredLength = 5;
                 //options.Password.RequiredUniqueChars = 2;
+
             }).AddEntityFrameworkStores<DatabaseContext>();
 
             services.AddDbContextPool<DatabaseContext>(ops => ops.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped(typeof(ISqlRepository<ApplicationUser>), typeof(UserRepository));
-
-            services.AddScoped(typeof(ISqlRepository<TodoObjectModel>), typeof(TodoRepository));
+            services.AddScoped(typeof(IRepository<TodoObjectModel>), typeof(TodoRepository));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

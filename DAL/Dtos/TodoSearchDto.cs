@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DAL.Dtos
 {
-    public class SearchDto
+    public class TodoSearchDto
     {
         public string Property { get; set; }
         public string SearchTerm { get; set; }

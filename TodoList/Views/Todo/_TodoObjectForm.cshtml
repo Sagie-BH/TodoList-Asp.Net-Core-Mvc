@@ -1,16 +1,11 @@
-﻿@*@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
-
-    @{
-        string antiForgeryToken = Xsrf.GetAndStoreTokens(Context).RequestToken;
-    }*@
-@model TodoViewModel;
+﻿@model TodoObjectViewModel;
 
 <div class="panel panel-default">
     <div class="panel-heading">
         <h4>Create/Edit Object</h4>
     </div>
     <div class="panel-body">
-        <form id="todo-form" data-ajax="true" asp-action="TodoFormTask" data-ajax-success="onSuccess" data-ajax-method="POST">
+        <form id="todo-form" data-ajax="true" asp-action="CreateTodo" data-ajax-success="onSuccess" data-ajax-method="POST">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
                  
@@ -42,7 +37,7 @@
                     <span asp-validation-for="Priority" class="text-danger"></span>
                 </div>
             </div>
-            <input type="hidden" id="hiddenID" />
+            <input type="hidden" id="hiddenID" asp-for="UserEmail" />
             <div class="form-group">
                 <input id="create-btn" type="submit" class="btn btn-primary" value="Save" />
                 <input id="edit-btn" type="button" onclick="return sendEditRequest()" class="btn btn-primary hide-me" value="Edit" />

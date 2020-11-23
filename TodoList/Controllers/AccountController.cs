@@ -38,15 +38,14 @@ namespace TodoList.Controllers
                 if (result.Succeeded)
                 {
                     await signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Todo", "Todo");
+                    return RedirectToAction("Todo", "Todo", user);
                 }
                 foreach (var err in result.Errors)
                 {
-                    // Sending singup errors to the asp-validation-summary
+                    // Sending sing-up errors to the asp-validation-summary
                     ModelState.AddModelError("", err.Description);
                 }
             }
-
             return View(viewModel);
         }
         [HttpGet]
@@ -65,7 +64,8 @@ namespace TodoList.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Todo", "Todo");
+                    var user = await userManager.FindByNameAsync(viewModel.Email);
+                    return RedirectToAction("Todo", "Todo", user);
                 }
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
 

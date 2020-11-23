@@ -11,8 +11,8 @@ namespace DAL.Profiles
         {
             CreateMap<TodoObjectModel, TodoObjectReadDto>();
             CreateMap<TodoObjectCreateDto, TodoObjectModel>();
-            CreateMap<TodoViewModel, TodoObjectModel>();
-            CreateMap<TodoObjectModel, TodoViewModel>();
+            CreateMap<TodoObjectModel, TodoObjectViewModel>();
+            CreateMap<TodoObjectViewModel, TodoObjectModel>();
         }
     }
 }

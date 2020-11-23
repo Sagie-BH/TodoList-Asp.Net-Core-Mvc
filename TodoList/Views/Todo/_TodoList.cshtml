@@ -2,10 +2,10 @@
 @using DAL.Repositories;
 @using DAL.Models;
 
-@inject ISqlRepository<TodoObjectModel> Repository;
+@inject IRepository<TodoObjectModel> Repository;
 @inject AutoMapper.IMapper mapper;
 
-@model IEnumerable<TodoViewModel>;
+@model IEnumerable<TodoObjectViewModel>;
 
 <table id="todoTable" class="table">
     <thead>
@@ -35,7 +35,7 @@
             var TodoViewModelList = Model;
             if (TodoViewModelList == null)
             {
-                TodoViewModelList = mapper.Map<IEnumerable<TodoViewModel>>(Repository.GetAll());
+                TodoViewModelList = mapper.Map<IEnumerable<TodoObjectViewModel>>(Repository.GetAll());
             }
 
         }
