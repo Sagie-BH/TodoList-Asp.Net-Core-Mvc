@@ -1,12 +1,13 @@
 ﻿
 class TodoModel {
-    constructor(Id, StartTime, EndTime, Title, Description, Priority) {
+    constructor(Id, StartTime, EndTime, Title, Description, Priority, UserEmail) {
         this.Id = Id;
         this.StartTime = StartTime;
         this.EndTime = EndTime;
         this.Title = Title;
         this.Description = Description
         this.Priority = Priority;
+        this.UserEmail = UserEmail;
     }
 }
 const contextToTodoObj = (context) => {
@@ -112,8 +113,9 @@ const getObjFromFields = () => {
 
 // Sending Edit Ajax Post Request
 const sendEditRequest = () => {
-    let todoObject = getObjFromFields()
-    let todoData = JSON.stringify(todoObject)
+    let todoObject = getObjFromFields();
+    todoObject.UserEmail = "123@123.com";
+    let todoData = JSON.stringify(todoObject);
 
     $.ajax({
         url: `/Todo/Edit`,

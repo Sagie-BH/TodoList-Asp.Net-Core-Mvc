@@ -13,16 +13,67 @@
     <h4>Last Page Serever Refresh: @DateTime.Now</h4>
 </div>
 
-<partial name="_TodoObjectForm" for="TodoObject" />
+@*<partial name="_CreateTodo" for="TodoObject" />*@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Create/Edit Object</h4>
+    </div>
+    <div class="panel-body">
+        <form method="post" asp-action="CreateTodo" id="todo-form" data-ajax="true" data-ajax-success="onSuccess" data-ajax-method="POST">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="form-group col-3">
+                    <label asp-for="@Model.TodoObject.Title" class="control-label"></label>
+                    <input asp-for="@Model.TodoObject.Title" id="title-input" class="form-control" />
+                    <span asp-validation-for="@Model.TodoObject.Title" class="text-danger"></span>
+                </div>
+                <div class="form-group col-9">
+                    <label asp-for="@Model.TodoObject.Description" class="control-label"></label>
+                    <input asp-for="@Model.TodoObject.Description" id="description-input" class="form-control" />
+                    <span asp-validation-for="@Model.TodoObject.Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-5">
+                    <label asp-for="@Model.TodoObject.StartTime" class="control-label"></label>
+                    <input asp-for="@Model.TodoObject.StartTime" id="start-input" class="form-control" />
+                    <span asp-validation-for="@Model.TodoObject.StartTime" class="text-danger"></span>
+                </div>
+                <div class="form-group col-5">
+                    <label asp-for="@Model.TodoObject.EndTime" class="control-label"></label>
+                    <input asp-for="@Model.TodoObject.EndTime" id="end-input" class="form-control" />
+                    <span asp-validation-for="@Model.TodoObject.EndTime" class="text-danger"></span>
+                </div>
+                <div class="form-group col-2">
+                    <label asp-for="@Model.TodoObject.Priority" class="control-label"></label>
+                    <input asp-for="@Model.TodoObject.Priority" id="priority-input" class="form-control" />
+                    <span asp-validation-for="@Model.TodoObject.Priority" class="text-danger"></span>
+                </div>
+            </div>
+            <input type="hidden" id="hiddenID" asp-for="@Model.TodoObject.Id" />
+            <input type="hidden" asp-for="UserEmail" value="@Model.UserEmail" />
+            @*<input type="hidden" asp-for="@Model.TodoObject.SubmitTime" value="@DateTime.Now" />*@
+            <div class="form-group">
+                <input id="create-btn" type="submit" class="btn btn-primary" value="Save" />
+                <input id="edit-btn" type="button" onclick="return sendEditRequest()" class="btn btn-primary hide-me" value="Edit" />
+            </div>
+        </form>
+    </div>
+</div>
 
 <partial name="_TodoSearch" for="SearchDto" />
 
 <partial name="_TodoList" for="TodoList" />
 
 
+
+
+
+
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
-    <script src="~/js/TodoScript.js"></script>
-}
+        <partial name="_ValidationScriptsPartial" />
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+        <script src="~/js/TodoScript.js"></script>
+    }

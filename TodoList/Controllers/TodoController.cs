@@ -22,42 +22,44 @@ namespace TodoList.Controllers
         private readonly ILogger<TodoController> _logger;
         private readonly IRepository<TodoObjectModel> repository;
         private readonly IMapper _mapper;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public TodoController(ILogger<TodoController> logger, IRepository<TodoObjectModel> repository,
-                        IMapper mapper)
+                        IMapper mapper, UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
             this.repository = repository;
             _mapper = mapper;
+            this.userManager = userManager;
         }
 
         public IActionResult Todo(ApplicationUser user)
         {
-            var todoList = repository.GetAll().Where(x => x.ApplicationUserId == user.Id);
+            var todoList = repository.GetAll().Where(x => x.UserEmail == user.Email);
 
-            var todoObject = new TodoObjectViewModel
-            {
-                UserEmail = user.Email
-            };
             TodoListViewModel model = new TodoListViewModel
             {
-                UserEmail = user.Email,
                 TodoList = _mapper.Map<IEnumerable<TodoObjectViewModel>>(todoList).ToList(),
-                TodoObject = todoObject
+                UserEmail = user.Email
             };
             return View(model);
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateTodo(TodoObjectViewModel todoViewObject)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateTodo(TodoObjectViewModel todoObject, string userEmail)
         {
-            var TodoModelObject = _mapper.Map<TodoObjectModel>(todoViewObject);
+            var todoModelObject = _mapper.Map<TodoObjectModel>(todoObject);
 
-            repository.Create(TodoModelObject);
+            //var user = await userManager.FindByEmailAsync(userEmail);
+
+            todoModelObject.UserEmail = userEmail;
+
+            repository.Create(todoModelObject);
 
             if (await repository.SaveChanges())
             {
-                return Ok(_mapper.Map<TodoObjectViewModel>(TodoModelObject));
+                return RedirectToAction("Todo", new ApplicationUser { Email = userEmail });
             }
             return base.NotFound();
         }
@@ -99,11 +101,13 @@ namespace TodoList.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TodoObjectCreateDto>> Edit([FromBody] TodoObjectCreateDto todoCreateObject)
+        public async Task<ActionResult> Edit([FromBody]TodoObjectCreateDto todoData)
         {
-            var todoToEdit = repository.GetById(todoCreateObject.Id);
+            var todoToEdit = repository.GetById(todoData.Id);
+            var user = await userManager.FindByEmailAsync(todoData.UserEmail);
 
-            _mapper.Map(todoCreateObject, todoToEdit);
+            todoToEdit.UserEmail = user.Id;
+            _mapper.Map(todoData, todoToEdit);
 
             repository.Update(todoToEdit);
 

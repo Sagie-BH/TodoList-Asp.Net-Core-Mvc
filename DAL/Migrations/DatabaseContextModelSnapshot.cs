@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace TodoList.Migrations
+namespace DAL.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
     partial class DatabaseContextModelSnapshot : ModelSnapshot
@@ -52,6 +52,9 @@ namespace TodoList.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
+
+                    b.Property<string>("UserEmail")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -274,15 +277,15 @@ namespace TodoList.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9ad4bc0c-73a9-4172-9bf2-b3301402e95b",
+                            Id = "ca763705-b1e8-4837-9b61-a8a0ba8a5c1b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "136f9cd3-a747-41be-ae3f-644321ae76f5",
+                            ConcurrencyStamp = "f35a48f3-26b1-4e71-8be3-68e7185e3ecb",
                             Email = "sagie@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PasswordHash = "12345",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "56230941-9e68-4d66-94c2-9922aa024447",
+                            SecurityStamp = "6f5dac87-6d27-4c9f-b24d-3f692db006ec",
                             TwoFactorEnabled = false,
                             UserName = "Sagie"
                         });

@@ -40,14 +40,7 @@ namespace TodoList.Repositories
 
         public async Task<bool> SaveChanges()
         {
-            var taskResult = await Task.Run(() =>
-            {
-                bool changesSaved;
-                try { context.SaveChanges(); changesSaved = true; }
-                catch { changesSaved = false; }
-                return changesSaved;
-            });
-            return taskResult;
+            return await context.SaveChangesAsync() > 0;
         }
 
         public void Update(TodoObjectModel todoObject)

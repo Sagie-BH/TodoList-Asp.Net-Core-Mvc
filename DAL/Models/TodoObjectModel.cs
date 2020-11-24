@@ -28,6 +28,6 @@ namespace DAL.Models
         [Required]
         [Range(0, 100)]
         public int Priority { get; set; }
-        public string ApplicationUserId { get; set; }
+        public string UserEmail { get; set; }
     }
 }
