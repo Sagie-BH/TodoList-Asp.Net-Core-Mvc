@@ -79,9 +79,9 @@ namespace TodoList.Controllers
                     ModelState.AddModelError("", error.Description);
                 }
             }
-            
             return View(vm);
         }
+
         [HttpPost]
         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
@@ -218,6 +218,28 @@ namespace TodoList.Controllers
                 }
             }
             return RedirectToAction("EditRole", new { Id = roleId });
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+            if (user is null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var result = await userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ListUsers");
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View("ListUsers");
+            }
         }
     }
 }
