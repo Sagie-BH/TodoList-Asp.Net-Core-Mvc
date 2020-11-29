@@ -23,9 +23,64 @@ namespace TodoList.Controllers
             this.userManager = userManager;
         }
         [HttpGet]
+        public IActionResult ListUsers()
+        {
+            var users = userManager.Users;
+            return View(users);
+        }
+        [HttpGet]
         public IActionResult CreateRole()
         {
             return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> EditUser(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+            if(user is null)
+            {
+                return NotFound();
+            }
+
+            var userClaims = await userManager.GetClaimsAsync(user);
+            var userRoles = await userManager.GetRolesAsync(user);
+
+            var vm = new EditUserViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                UserName = user.UserName,
+                Claims = userClaims.Select(c => c.Value).ToList(),
+                Roles = userRoles
+            };
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditUser(EditUserViewModel vm)
+        {
+            var user = await userManager.FindByIdAsync(vm.Id);
+            if (user is null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                user.Email = vm.Email;
+                user.UserName = vm.UserName;
+
+                var result = await userManager.UpdateAsync(user);
+
+                if(result.Succeeded)
+                {
+                    return RedirectToAction("ListUsers");
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+            
+            return View(vm);
         }
         [HttpPost]
         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)

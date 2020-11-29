@@ -11,24 +11,28 @@
         <div class="navbar-collapse collapse">
             <ul class="navbar-nav flex-grow-1">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Todo" asp-action="Todo">Home</a>
+                    <a class="nav-link text-dark" asp-controller="Todo" asp-action="Todo">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Todo" asp-action="Privacy">Privacy</a>
+                    <a class="nav-link text-dark" asp-controller="Todo" asp-action="Privacy">Privacy</a>
                 </li>
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="nav-item dropdown">
+                        <a href="#dropdown-content" class="nav-link dropdown-toggle" data-toggle="collapse" role="button" aria-controls="dropdown-content" aria-expanded="false">Manage</a>
+                        <div id="dropdown-content" class="collapse dropdown-menu">
+                            <a class="dropdown-item" asp-controller="Administration" asp-action="ListUsers">Users</a>
+                            <a class="dropdown-item" asp-controller="Administration" asp-action="ListRoles">Roles</a>
+                        </div>
+                    </li>
+                }
             </ul>
             <ul class="navbar-nav float-right">
                 @if (signInManager.IsSignedIn(User))
                 {
-                    if (User.IsInRole("Admin"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Administration" asp-action="ListRoles">Roles List</a>
-                        </li>
-                    }
                     <li class="nav-item">
                         <form method="post" asp-action="Logout" asp-controller="Account">
-                            <button type="submit" class="nav-link" btn btn-link py-0>
+                            <button type="submit" class="nav-link btn btn-link py-0">
                                 Logout @User.Identity.Name
                             </button>
                         </form>
@@ -47,3 +51,4 @@
         </div>
     </div>
 </nav>
+<partial name="_ValidationScriptsPartial" />

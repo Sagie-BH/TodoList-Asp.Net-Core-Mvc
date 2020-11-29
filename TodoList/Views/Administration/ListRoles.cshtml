@@ -3,8 +3,6 @@
 <h1>All Roles</h1>
 @if (Model.Any())
 {
-    <a asp-controller="Administration" asp-action="CreateRole" class="btn btn-primary">Add New Role</a>
-
     foreach (var role in Model)
     {
         <div class="card mb-3">
@@ -20,6 +18,7 @@
             </div>
         </div>
     }
+    <a asp-controller="Administration" asp-action="CreateRole" class="btn btn-primary">Add New Role</a>
 }
 else
 {
