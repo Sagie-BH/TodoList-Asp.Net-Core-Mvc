@@ -12,6 +12,7 @@ using DAL.ViewModels.TodoViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using TodoList.Models;
 
@@ -19,29 +20,37 @@ namespace TodoList.Controllers
 {
     public class TodoController : Controller
     {
+        private readonly IMemoryCache _cache;
         private readonly ILogger<TodoController> _logger;
-        private readonly IRepository<TodoObjectModel> repository;
+        private readonly IRepository<TodoObjectModel> _repository;
         private readonly IMapper _mapper;
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public TodoController(ILogger<TodoController> logger, IRepository<TodoObjectModel> repository,
-                        IMapper mapper, UserManager<ApplicationUser> userManager)
+                        IMapper mapper, UserManager<ApplicationUser> userManager, IMemoryCache cache)
         {
             _logger = logger;
-            this.repository = repository;
+            _repository = repository;
             _mapper = mapper;
-            this.userManager = userManager;
+            _userManager = userManager;
+            _cache = cache;
         }
 
         public IActionResult Todo(ApplicationUser user)
         {
-            var todoList = repository.GetAll().Where(x => x.UserEmail == user.Email);
+            IEnumerable<TodoObjectModel> todoList;
+            TodoListViewModel model = new TodoListViewModel { UserEmail = user.Email };
 
-            TodoListViewModel model = new TodoListViewModel
+            if (!_cache.TryGetValue("TodoList", out todoList))
             {
-                TodoList = _mapper.Map<IEnumerable<TodoObjectViewModel>>(todoList).ToList(),
-                UserEmail = user.Email
-            };
+                if (todoList == null)
+                {
+                    todoList = _repository.GetAll().Where(x => x.UserEmail == user.Email);
+                    _cache.Set("TodoList", todoList);
+                }
+            }
+
+            model.TodoList = _mapper.Map<IEnumerable<TodoObjectViewModel>>(todoList).ToList();
             return View(model);
         }
 
@@ -51,13 +60,11 @@ namespace TodoList.Controllers
         {
             var todoModelObject = _mapper.Map<TodoObjectModel>(todoObject);
 
-            //var user = await userManager.FindByEmailAsync(userEmail);
-
             todoModelObject.UserEmail = userEmail;
 
-            repository.Create(todoModelObject);
+            _repository.Create(todoModelObject);
 
-            if (await repository.SaveChanges())
+            if (await _repository.SaveChanges())
             {
                 return RedirectToAction("Todo", new ApplicationUser { Email = userEmail });
             }
@@ -65,17 +72,18 @@ namespace TodoList.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult<TodoObjectViewModel>> Delete(int id)
         {
             try
             {
-                var todoToDelete = repository.GetById(id);
+                var todoToDelete = _repository.GetById(id);
                 if (todoToDelete == null)
                 {
                     return NotFound($"Todo Object with Id = {id} not found");
                 }
-                repository.Remove(id);
-                if (await repository.SaveChanges())
+                _repository.Remove(id);
+                if (await _repository.SaveChanges())
                     return Ok();
                 else return base.NotFound();
             }
@@ -91,27 +99,28 @@ namespace TodoList.Controllers
         {
             if (!string.IsNullOrEmpty(searchObj.SearchTerm))
             {
-                var TodoList = repository.GetAll().Where(x => x.GetType().GetProperty(searchObj.Property).GetValue(x).ToString().StartsWith(searchObj.SearchTerm)).ToList();
+                var TodoList = _repository.GetAll().Where(x => x.GetType().GetProperty(searchObj.Property).GetValue(x).ToString().StartsWith(searchObj.SearchTerm)).ToList();
 
                 var viewlist = _mapper.Map<IEnumerable<TodoObjectReadDto>>(TodoList);
 
                 return Json(viewlist);
             }
-            else return Json(repository.GetAll());
+            else return Json(_repository.GetAll());
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([FromBody]TodoObjectCreateDto todoData)
         {
-            var todoToEdit = repository.GetById(todoData.Id);
-            var user = await userManager.FindByEmailAsync(todoData.UserEmail);
+            var todoToEdit = _repository.GetById(todoData.Id);
+            var user = await _userManager.FindByEmailAsync(todoData.UserEmail);
 
             todoToEdit.UserEmail = user.Id;
             _mapper.Map(todoData, todoToEdit);
 
-            repository.Update(todoToEdit);
+            _repository.Update(todoToEdit);
 
-            if (await repository.SaveChanges())
+            if (await _repository.SaveChanges())
             {
                 return NoContent();
             }

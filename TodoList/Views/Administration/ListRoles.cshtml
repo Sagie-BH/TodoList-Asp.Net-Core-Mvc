@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<IdentityRole>
 
+@using Microsoft.AspNetCore.Authorization
+
+@inject IAuthorizationService authorizationService
+
 <h1>All Roles</h1>
 @if (Model.Any())
 {
@@ -14,7 +18,11 @@
             </div>
             <div class="card-footer">
                 <form asp-action="DeleteRole" method="post" asp-route-id="@role.Id">
-                    <a asp-controller="Administration" asp-action="EditRole" asp-route-id="@role.Id" class="btn btn-primary">Edit</a>
+                    @if ((await authorizationService.AuthorizeAsync(User, "EditRolePolicy")).Succeeded)
+                    {
+                        <a asp-controller="Administration" asp-action="EditRole" asp-route-id="@role.Id" class="btn btn-primary">Edit</a>
+                    }
+
                     <span id="confirmDeleteSpan_@role.Id" style="display:none">
                         <span>Are You Sure?</span>
                         <button type="submit" class="btn btn-danger ml-4">Yes</button>

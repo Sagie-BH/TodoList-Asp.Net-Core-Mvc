@@ -33,6 +33,8 @@ namespace TodoList
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMemoryCache();
+
             services.AddControllersWithViews();
 
             services.AddControllers();
@@ -50,11 +52,6 @@ namespace TodoList
             }).AddEntityFrameworkStores<DatabaseContext>();
 
             services.AddDbContextPool<DatabaseContext>(ops => ops.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddScoped(typeof(IRepository<TodoObjectModel>), typeof(TodoRepository));
-
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
             services.AddMvc(opt => 
             {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();   // Use Authentication for the all website
@@ -62,7 +59,24 @@ namespace TodoList
             }
             ).AddXmlSerializerFormatters();
 
+            services.AddAuthorization(options => { 
+                options.AddPolicy("DeleteRolePolicy",
+                policy => policy.RequireClaim("Delete Role"));
+
+                options.AddPolicy("EditRolePolicy",
+                policy => policy.RequireClaim("Edit Role", "true"));
+
+                options.AddPolicy("CreateRolePolicy",
+                policy => policy.RequireClaim("Create Role"));
+            });
+
+            services.AddScoped(typeof(IRepository<TodoObjectModel>), typeof(TodoRepository));
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
             services.AddControllers().AddNewtonsoftJson();
+
         }
 
 
